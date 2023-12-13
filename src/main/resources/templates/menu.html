@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1>Меню</h1>
+    </div>
+    <div id="wrapper">
+        <div id="content">
+
+            <form name="form" id ="form" method="post" action="/">
+
+                <fieldset>
+                    <legend>Фильтры поиска</legend>
+
+                    <div th:classappend="${isAdmin} ? 'exists' : 'notExists'">
+
+                        <p>
+                            <input type="text" class="form__input" name = "id" id="id" placeholder="ID" />
+                            <label for="id" class="form__label">ID</label>
+                        </p>
+                        <p>
+                            <input type="text" class="form__input" name = "name" id="name" placeholder="Name" />
+                            <label for="name" class="form__label">Name</label>
+                        </p>
+
+                        <p>
+                            <input type="text" class="form__input" name = "price" id="price" placeholder="Price" />
+                            <label for="price" class="form__label">Price</label>
+                        </p>
+                    </div>
+
+                    <p>
+                        <label for="type" class="form__label">Type of dish</label>
+                        <select name = "type" id="type">
+                            <option selected value="NONE">Все</option>
+                            <option value="MAIN">Основные блюда</option>
+                            <option value="DESSERT">Десерты</option>
+                            <option value="DRINK">Напитки</option>
+                        </select>
+                    </p>
+
+                    <p th:classappend="${isAdmin} ? 'exists' : 'notExists'">
+                        <label for="is_available" class="form__label">Is available</label>
+                        <select name = "is_available" id="is_available" placeholder="Is available">
+                            <option selected value="true">Да</option>
+                            <option value="false">Нет</option>
+                        </select>
+                    </p>
+
+                    <p th:classappend="${isAdmin} ? 'exists' : 'notExists'">
+                        <input type="text" class="form__input" name = "structure" id="structure" placeholder="Structure" />
+                        <label for="structure" class="form__label">Structure</label>
+                    </p>
+
+                    <p th:classappend="${isAdmin} ? 'exists' : 'notExists'">
+                        <input type="text" class="form__input" name = "image" id="image" placeholder="Image" />
+                        <label for="image" class="form__label">Image</label>
+                    </p>
+
+                    <p>
+                        <button style="--c: #373B44;--b: 5px;--s:12px" type="submit" name="formButton">Ввод</button>
+                    </p>
+                </fieldset>
+            </form>
+            <p>
+                <div class="table" id="table_id">
+                    <div class="table-header">
+                        <div class="header__item" th:classappend="${isAdmin} ? 'exists' : 'notExists'"><p>Id</p></div>
+                        <div class="header__item"><p>Image</p></div>
+                        <div class="header__item"><p>Name</p></div>
+                        <div class="header__item"><p>Price</p></div>
+                        <div class="header__item" th:classappend="${isAdmin} ? 'exists' : 'notExists'"><p>Type</p></div>
+                        <div class="header__item" th:classappend="${isAdmin} ? 'exists' : 'notExists'"><p>Is available</p></div>
+                        <div class="header__item"><p>Structure</p></div>
+                    </div>
+                    <div class="table-content" id="table-cont-id">
+                        <div class="table-row" th:each="dish:${dishlist}">
+                            <div class="table-data" th:text="${dish.id}" th:classappend="${isAdmin} ? 'exists' : 'notExists'"></div>
+                            <div class="table-data"><img th:src="@{imgs/__(${dish.image})__.png}" alt="Картинку пока не завезли"/></div>
+                            <div class="table-data" th:text="${dish.name}"></div>
+                            <div class="table-data" th:text="${dish.price}"></div>
+                            <div class="table-data" th:text="${dish.type}" th:classappend="${isAdmin} ? 'exists' : 'notExists'"></div>
+                            <div class="table-data" th:text="${dish.is_available}" th:classappend="${isAdmin} ? 'exists' : 'notExists'"></div>
+                            <div class="table-data" th:text="${dish.structure}"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </p>
+        </div>
+
+    </div>
+    <div id="footer">
+
+        <p><a href="auth">Авторизация</a></p>
+        <p><a href="staff" th:classappend="${isAdmin} ? 'exists' : 'notExists'">Персонал</a></p>
+        <p><a href="users" th:classappend="${isAdmin} ? 'exists' : 'notExists'">Пользователи</a></p>
+    </div>
+</div>
+</body>
+</html>

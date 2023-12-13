@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персонал</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <h1>Персонал</h1>
+    </div>
+    <div id="wrapper">
+        <div id="content">
+
+            <form name="form" id ="form" method="post" action="/staff">
+
+                <fieldset>
+                    <legend>Система ввода данных</legend>
+
+                    <div>
+
+                        <p>
+                            <input type="text" class="form__input" name = "id" id="id" placeholder="ID" />
+                            <label for="id" class="form__label">ID</label>
+                        </p>
+                        <p>
+                            <input type="text" class="form__input" name = "name" id="name" placeholder="Name" />
+                            <label for="name" class="form__label">Name</label>
+                        </p>
+
+                        <p>
+                            <input type="text" class="form__input" name = "salary" id="salary" placeholder="Salary" />
+                            <label for="salary" class="form__label">Salary</label>
+                        </p>
+
+                        <p>
+                            <input type="text" class="form__input" name = "achievements" id="achievements" placeholder="Achievements" />
+                            <label for="achievements" class="form__label">Achievements</label>
+                        </p>
+                    </div>
+
+                    <p>
+                        <label for="post" class="form__label">Post</label>
+                        <select name = "post" id="post">
+                            <option selected value="NONE">Все</option>
+                            <option value="COOK">Повар</option>
+                            <option value="WAITER">Официант</option>
+                            <option value="ADMIN">Администратор</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <button style="--c: #373B44;--b: 5px;--s:12px" type="submit" name="formButton">Ввод</button>
+                    </p>
+                </fieldset>
+            </form>
+            <p>
+                <div class="table" id="table_id">
+                    <div class="table-header">
+                        <div class="header__item"><p>Id</p></div>
+                        <div class="header__item"><p>Name</p></div>
+                        <div class="header__item"><p>Post</p></div>
+                        <div class="header__item"><p>Salary</p></div>
+                        <div class="header__item"><p>Achievements</p></div>
+                    </div>
+                    <div class="table-content" id="table-cont-id">
+                        <div class="table-row" th:each="staff:${stafflist}">
+                            <div class="table-data" th:text="${staff.id}" ></div>
+                            <div class="table-data" th:text="${staff.name}"></div>
+                            <div class="table-data" th:text="${staff.post}"></div>
+                            <div class="table-data" th:text="${staff.salary}"></div>
+                            <div class="table-data" th:text="${staff.achievements}"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </p>
+        </div>
+
+    </div>
+    <div id="footer">
+
+        <p><a href="auth">Авторизация</a></p>
+        <p><a href="menu">Меню</a></p>
+        <p><a href="users">Пользователи</a></p>
+    </div>
+</div>
+</body>
+</html>
